@@ -4,10 +4,9 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/',
+  base: '',  // Remove the base URL prefix
   build: {
     outDir: 'dist',
-    assetsDir: 'assets',
-    sourcemap: false
+    assetsDir: 'assets'
   }
 });
