@@ -7,9 +7,7 @@ const Home = () => {
 
   const handleResumeDownload = async () => {
     try {
-      const resumeUrl = import.meta.env.DEV 
-        ? '/resume.pdf'
-        : '/rajaportfoli/resume.pdf';
+      const resumeUrl = '/resume.pdf';  // Changed from '/rajaportfoli/resume.pdf'
 
       const response = await fetch(resumeUrl);
       if (!response.ok) throw new Error('Resume not found');
@@ -46,12 +44,12 @@ const Home = () => {
           <div className="mb-8 animate-fadeInUp">
             <div className="w-40 h-40 sm:w-48 sm:h-48 mx-auto rounded-full overflow-hidden bg-gradient-to-br from-blue-400 to-blue-600 shadow-2xl border-4 border-white/20 hover:scale-105 transition-transform duration-300">
               <img
-                src="/rajaportfoli/profile.jpg"
+                src="/profile.jpg"  // Changed from '/rajaportfoli/profile.jpg'
                 alt="Vishwanath Raja Chanda"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   console.error('Image failed to load:', e);
-                  e.currentTarget.src = '/rajaportfoli/profile-fallback.jpg';
+                  e.currentTarget.src = '/profile-fallback.jpg';  // Changed path
                 }}
               />
             </div>
