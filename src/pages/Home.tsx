@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, Github, Linkedin, Mail, Download, ExternalLink } from 'lucide-react';
 
 const Home = () => {
+  const [downloadError, setDownloadError] = useState(false);
+
+  const handleResumeDownload = async () => {
+    try {
+      const resumeUrl = import.meta.env.DEV 
+        ? '/resume.pdf'
+        : '/rajaportfoli/resume.pdf';
+
+      const response = await fetch(resumeUrl);
+      if (!response.ok) throw new Error('Resume not found');
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'VishwanathRajaChanda_Resume.pdf';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Download failed:', error);
+      setDownloadError(true);
+      setTimeout(() => setDownloadError(false), 3000);
+    }
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -17,8 +44,16 @@ const Home = () => {
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
           {/* Profile Photo */}
           <div className="mb-8 animate-fadeInUp">
-            <div className="w-40 h-40 sm:w-48 sm:h-48 mx-auto rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-5xl sm:text-6xl font-bold text-white shadow-2xl border-4 border-white/20 hover:scale-105 transition-transform duration-300">
-              VR
+            <div className="w-40 h-40 sm:w-48 sm:h-48 mx-auto rounded-full overflow-hidden bg-gradient-to-br from-blue-400 to-blue-600 shadow-2xl border-4 border-white/20 hover:scale-105 transition-transform duration-300">
+              <img
+                src="/rajaportfoli/profile.jpg"
+                alt="Vishwanath Raja Chanda"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  console.error('Image failed to load:', e);
+                  e.currentTarget.src = '/rajaportfoli/profile-fallback.jpg';
+                }}
+              />
             </div>
           </div>
 
@@ -55,19 +90,21 @@ const Home = () => {
               <Mail size={20} />
               <span>Get In Touch</span>
             </Link>
-            <Link
-              to="/resume"
-              className="group border-2 border-gray-500 text-gray-400 hover:bg-gray-500 hover:text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
+            <button
+              className={`group border-2 ${
+                downloadError ? 'border-red-500 text-red-400' : 'border-gray-500 text-gray-400'
+              } hover:bg-gray-500 hover:text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center space-x-2`}
+              onClick={handleResumeDownload}
             >
               <Download size={20} />
-              <span>Resume</span>
-            </Link>
+              <span>{downloadError ? 'Resume Not Available' : 'Download Resume'}</span>
+            </button>
           </div>
 
-          {/* Social Links */}
+          {/* Social Links in Hero Section */}
           <div className="flex justify-center space-x-8 mb-12 animate-fadeInUp animation-delay-800">
             <a
-              href="https://github.com/vishwanath-raja-chanda"
+              href="https://github.com/rajachanda"
               target="_blank"
               rel="noopener noreferrer"
               className="group text-gray-400 hover:text-blue-400 transition-all duration-300 transform hover:scale-125"
@@ -76,7 +113,7 @@ const Home = () => {
               <span className="sr-only">GitHub</span>
             </a>
             <a
-              href="https://www.linkedin.com/in/vishwanath-raja-chanda"
+              href="https://www.linkedin.com/in/vishwanath-raja-chanda-43888a28b/"
               target="_blank"
               rel="noopener noreferrer"
               className="group text-gray-400 hover:text-blue-400 transition-all duration-300 transform hover:scale-125"
@@ -150,6 +187,48 @@ const Home = () => {
               >
                 Learn More About My Journey
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Profile Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            {/* Profile Image Section */}
+            <div className="w-64 h-64 rounded-full overflow-hidden border-4 border-blue-500 shadow-xl">
+              <img
+                src="/rajaportfoli/profile.jpg"
+                alt="Raja Chanda"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  console.error('Image failed to load:', e);
+                  e.currentTarget.src = '/rajaportfoli/profile-fallback.jpg';
+                }}
+              />
+            </div>
+
+            {/* Profile Info Section */}
+            <div className="flex-1 text-center md:text-left">
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">Raja Chanda</h1>
+              <h2 className="text-2xl text-blue-600 mb-6">Full Stack Developer</h2>
+              <p className="text-lg text-gray-600 mb-6">
+                Passionate developer with expertise in React, TypeScript, and modern web technologies.
+              </p>
+              
+              {/* Social Links in Profile Section */}
+              <div className="flex gap-4 justify-center md:justify-start">
+                <a href="https://github.com/rajachanda" className="text-gray-700 hover:text-blue-600">
+                  <Github size={24} />
+                </a>
+                <a href="mailto:rajachanda1105@gmail.com" className="text-gray-700 hover:text-blue-600">
+                  <Mail size={24} />
+                </a>
+                <a href="https://www.linkedin.com/in/vishwanath-raja-chanda-43888a28b/" className="text-gray-700 hover:text-blue-600">
+                  <Linkedin size={24} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
