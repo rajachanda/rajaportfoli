@@ -11,17 +11,16 @@ import './index.css';
 
 function App() {
   return (
-    <Router basename="/rajaportfoli">
+    <Router>
       <div className="min-h-screen bg-gray-900 text-white">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Navigate to="/home" replace />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/skills" element={<Skills />} />
+          <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/resume" element={<Resume />} />
+          <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/resume" element={<Resume />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </Router>
