@@ -195,14 +195,14 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center gap-12">
             {/* Profile Image Section */}
-            <div className="w-64 h-64 rounded-full overflow-hidden border-4 border-blue-500 shadow-xl">
+            <div className="w-64 h-64 rounded-full overflow-hidden bg-gradient-to-br from-blue-400 to-blue-600 shadow-2xl border-4 border-white/20 hover:scale-105 transition-transform duration-300">
               <img
-                src="/rajaportfoli/profile.jpg"
-                alt="Raja Chanda"
+                src="/profile.jpg"
+                alt="Vishwanath Raja Chanda"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   console.error('Image failed to load:', e);
-                  e.currentTarget.src = '/rajaportfoli/profile-fallback.jpg';
+                  e.currentTarget.src = '/profile-fallback.jpg';
                 }}
               />
             </div>
