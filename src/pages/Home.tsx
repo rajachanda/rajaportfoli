@@ -7,7 +7,7 @@ const Home = () => {
 
   const handleResumeDownload = async () => {
     try {
-      const resumeUrl = './resume.pdf';  // Use relative path
+      const resumeUrl = '/resume.pdf';  // Changed path
 
       const response = await fetch(resumeUrl);
       if (!response.ok) throw new Error('Resume not found');
@@ -44,12 +44,12 @@ const Home = () => {
           <div className="mb-8 animate-fadeInUp">
             <div className="w-40 h-40 sm:w-48 sm:h-48 mx-auto rounded-full overflow-hidden bg-gradient-to-br from-blue-400 to-blue-600 shadow-2xl border-4 border-white/20 hover:scale-105 transition-transform duration-300">
               <img
-                src="./profile.jpg"  // Use relative path
+                src="/profile.jpg"  // Changed path
                 alt="Vishwanath Raja Chanda"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   console.error('Image failed to load:', e);
-                  e.currentTarget.src = './profile-fallback.jpg';  // Use relative path
+                  e.currentTarget.src = '/profile-fallback.jpg';  // Changed path
                 }}
               />
             </div>
